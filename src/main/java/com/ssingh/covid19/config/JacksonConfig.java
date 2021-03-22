@@ -2,8 +2,6 @@ package com.ssingh.covid19.config;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +26,7 @@ public class JacksonConfig {
 	public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
 		Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder
 				.json();
-		builder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+		builder.propertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
 		builder.serializationInclusion(JsonInclude.Include.NON_NULL);
 		builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
 		builder.indentOutput(true);
@@ -38,6 +36,7 @@ public class JacksonConfig {
 
 		SimpleModule instantModule = new SimpleModule();
 		instantModule.addSerializer(Instant.class, new InstantSerializer());
+		instantModule.addDeserializer(Instant.class, new InstantDeserializer());
 		builder.modules(instantModule);
 		return builder;
 	}
@@ -53,7 +52,7 @@ public class JacksonConfig {
 		}
 	}
 
-	private static class AppCustomDeserializer extends
+	private static class InstantDeserializer extends
 			JsonDeserializer<Instant> {
 		@Override
 		public Instant deserialize(JsonParser p, DeserializationContext ctxt)
