@@ -9,6 +9,7 @@
 - [x] Apache Commons libraries
 - [x] SL4j Logging Facade
 - [x] Caching : Simple ConcurrentHashMap (Default)
+- [x] Messaging : ActiveMQ
 
 ## Application Features
 - [x] Profiling : local & heroku (PAAS) 
