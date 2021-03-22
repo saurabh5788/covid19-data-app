@@ -1,4 +1,4 @@
-#COVID19 Data BE Application (Demo Purpose)
+# COVID19 Data BE Application (Demo Purpose)
 
 ## Technology/Library Stack
 - [x] Java 8
