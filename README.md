@@ -1,26 +1,27 @@
 # COVID19 Data BE Application (Demo Purpose)
 
 ## Technology/Library Stack
-- [x] Java 8
-- [x] Spring Boot
-- [x] JPA/Hibernate (Default)
-- [x] Embedded Server : Undertow
-- [x] Validation by Hibernate-validator (Default)
-- [x] Apache Commons libraries
-- [x] SL4j Logging Facade
-- [x] Caching : Simple ConcurrentHashMap (Default)
-- [x] Messaging : ActiveMQ
+- Java 8
+- Spring Boot
+- JPA/Hibernate (Default)
+- Embedded Server : Undertow
+- Validation by Hibernate-validator (Default)
+- Apache Commons libraries
+- SL4j Logging Facade
+- Caching : Simple ConcurrentHashMap (Default)
+- Messaging : RabbitMQ (cloudamqp.com)
 
 ## Application Features
-- [x] Profiling : local & heroku (PAAS) 
-- [x] Caching
-- [x] Logging
-- [x] Actuator Monitoring
+- Profiling : local & heroku (PAAS) 
+- Caching
+- Logging
+- Actuator Monitoring
 
 ## Bootstrapping Application
 
 ## REST Endpoints
 
-https://<<HOST>>/covid19/api/state/list
+- https://covid19-data-app-india.herokuapp.com/api/state/list
+- https://covid19-data-app-india.herokuapp.com/api/state/{code}
 
 ## Future Additions

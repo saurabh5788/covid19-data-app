@@ -1,12 +1,14 @@
 package com.ssingh.covid19.component;
 
-import org.springframework.jms.annotation.JmsListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import com.ssingh.covid19.dto.StateDetailDTO;
 
 @Component
 public class AppMessageReceiver {
-	@JmsListener(destination = "jms.message.endpoint.update")
-	public void receiveUpdateMessage(String msg) {
+	@RabbitListener(queues = "${msg.queue.updatecount}")
+	public void receiveUpdateMessage(StateDetailDTO msg) {
 		System.out.println("Received " + msg);
 	}
 }
