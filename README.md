@@ -24,6 +24,6 @@
 - https://covid19-data-app-india.herokuapp.com/api/state/{code}
 
 ##Other Details
-- State details reference : (https://en.wikipedia.org/wiki/States_and_union_territories_of_India)
+- State details reference : https://en.wikipedia.org/wiki/States_and_union_territories_of_India
 
 ## Future Additions
