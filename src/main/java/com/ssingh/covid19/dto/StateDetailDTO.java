@@ -11,6 +11,9 @@ public class StateDetailDTO extends AbstractDTO {
 	private String stateCode;
 	private String stateName;
 	private BigInteger statePopulation;
+	private BigInteger totalActiveCases;
+	private BigInteger totalDeathCases;
+	private BigInteger totalCureCases;
 	public String getStateCode() {
 		return stateCode;
 	}
@@ -28,5 +31,23 @@ public class StateDetailDTO extends AbstractDTO {
 	}
 	public void setStatePopulation(BigInteger statePopulation) {
 		this.statePopulation = statePopulation;
+	}
+	public BigInteger getTotalActiveCases() {
+		return totalActiveCases;
+	}
+	public void setTotalActiveCases(BigInteger totalActiveCases) {
+		this.totalActiveCases = totalActiveCases;
+	}
+	public BigInteger getTotalDeathCases() {
+		return totalDeathCases;
+	}
+	public void setTotalDeathCases(BigInteger totalDeathCases) {
+		this.totalDeathCases = totalDeathCases;
+	}
+	public BigInteger getTotalCureCases() {
+		return totalCureCases;
+	}
+	public void setTotalCureCases(BigInteger totalCureCases) {
+		this.totalCureCases = totalCureCases;
 	}
 }

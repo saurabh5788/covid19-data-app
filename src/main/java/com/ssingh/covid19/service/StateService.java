@@ -28,7 +28,7 @@ public class StateService {
 			.getLogger(StateService.class);
 
 	@Cacheable(value = "states")
-	public Map<String, StateDetailDTO> getAllStates() {
+	public List<StateDetailDTO> getAllStates() {
 		List<StateDetailDTO> stateList = new ArrayList<StateDetailDTO>();
 
 		StateDetailDTO state = new StateDetailDTO();
@@ -45,21 +45,22 @@ public class StateService {
 
 		state = new StateDetailDTO();
 		state.setStateCode("UP");
-		//state.setName("Uttar Pradesh");
+		state.setStateName("Uttar Pradesh");
 		state.setStatePopulation(BigInteger.valueOf(6876768));
 		stateList.add(state);
 
-		Map<String, StateDetailDTO> stateMap = new HashMap<>();
-		MapUtils.populateMap(stateMap, stateList, StateDetailDTO::getStateCode);
-		LOGGER.debug(stateMap.toString());
-		return stateMap;
+		return stateList;
 	}
 
 	@Cacheable(value = "state", key = "#code")
 	public StateDetailDTO getState(@Size(max = 2, min = 2) String code) {
 		LOGGER.debug("Fetching State : {}", code);
-		Map<String, StateDetailDTO> allStates = getAllStates();
-		StateDetailDTO state = allStates.get(code);
+		List<StateDetailDTO> allStates = getAllStates();
+		
+		Map<String, StateDetailDTO> stateMap = new HashMap<>();
+		MapUtils.populateMap(stateMap, allStates, StateDetailDTO::getStateCode);
+		
+		StateDetailDTO state = stateMap.get(code);
 		if (Objects.isNull(state)) {
 			throw new NoElementFoundException("No State found for Code : "
 					+ code);
