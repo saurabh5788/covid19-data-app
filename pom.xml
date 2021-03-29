@@ -120,7 +120,7 @@
 			<id>local</id>
 			<activation>
 				<property>
-					<name>env</name>
+					<name>ENV</name>
 					<value>local</value>
 				</property>
 				<activeByDefault>true</activeByDefault>
@@ -147,7 +147,7 @@
 			<id>heroku</id>
 			<activation>
 				<property>
-					<name>env</name>
+					<name>ENV</name>
 					<value>heroku</value>
 				</property>
 			</activation>
