@@ -1,5 +1,5 @@
 # COVID19 Data BE Application (Demo Purpose)
-This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a basic backend service which can collect the State wise Covid19 case updates and provide a consolidated data. 
+This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a basic back-end service which can collect the State wise Covid19 case updates and provide a consolidated data. 
 
 ## Technology/Library Stack
 - Java 8 with Spring Boot
@@ -24,8 +24,10 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - Build and run the project : 
 	```
 	mvnw clean install -DENV=local
-	Run : java -jar target\covid19-data-app.jar
+	java -jar target\covid19-data-app.jar
+	```
 	or
+	```
 	mvnw spring-boot:run -DENV=local
 	```
 
@@ -36,5 +38,3 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - State details reference : https://en.wikipedia.org/wiki/States_and_union_territories_of_India
 - State Population : https://www.indiatoday.in/education-today/gk-current-affairs/story/indian-states-with-highest-population-1358414-2018-10-08
 
-## Description
-It is a small Backend service application 
