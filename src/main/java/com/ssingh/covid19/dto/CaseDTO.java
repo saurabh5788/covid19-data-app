@@ -1,7 +1,5 @@
 package com.ssingh.covid19.dto;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.ssingh.covid19.annotation.ValidStateCode;
 
@@ -11,17 +9,17 @@ public class CaseDTO extends AbstractDTO {
 
 	@ValidStateCode
 	private String stateCode;
-	private BigInteger activeCases;
-	private BigInteger deathCases;
-	private BigInteger recoveredCases;
+	private long activeCases;
+	private long deathCases;
+	private long recoveredCases;
 
 	public CaseDTO() {
 	}
 
 	public CaseDTO(
 			@ValidStateCode String stateCode,
-			BigInteger activeCases, BigInteger deathCases,
-			BigInteger recoveredCases) {
+			long activeCases, long deathCases,
+			long recoveredCases) {
 		super();
 		this.stateCode = stateCode;
 		this.activeCases = activeCases;
@@ -37,27 +35,27 @@ public class CaseDTO extends AbstractDTO {
 		this.stateCode = stateCode;
 	}
 
-	public BigInteger getActiveCases() {
+	public long getActiveCases() {
 		return activeCases;
 	}
 
-	public void setActiveCases(BigInteger activeCases) {
+	public void setActiveCases(long activeCases) {
 		this.activeCases = activeCases;
 	}
 
-	public BigInteger getDeathCases() {
+	public long getDeathCases() {
 		return deathCases;
 	}
 
-	public void setDeathCases(BigInteger deathCases) {
+	public void setDeathCases(long deathCases) {
 		this.deathCases = deathCases;
 	}
 
-	public BigInteger getRecoveredCases() {
+	public long getRecoveredCases() {
 		return recoveredCases;
 	}
 
-	public void setRecoveredCases(BigInteger recoveredCases) {
+	public void setRecoveredCases(long recoveredCases) {
 		this.recoveredCases = recoveredCases;
 	}
 }

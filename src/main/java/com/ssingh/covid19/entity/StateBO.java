@@ -1,7 +1,5 @@
 package com.ssingh.covid19.entity;
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +26,7 @@ public class StateBO {
 	@Column(name = "state_name", length = 50, nullable = false, unique = true, updatable = false)
 	private String stateName;
 	@Column(name = "population")
-	private BigInteger population;
+	private long population;
 
 	public String getStateCode() {
 		return stateCode;
@@ -46,11 +44,11 @@ public class StateBO {
 		this.stateName = stateName;
 	}
 
-	public BigInteger getPopulation() {
+	public long getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(BigInteger population) {
+	public void setPopulation(long population) {
 		this.population = population;
 	}
 }

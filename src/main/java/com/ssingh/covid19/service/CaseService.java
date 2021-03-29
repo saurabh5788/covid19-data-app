@@ -99,11 +99,11 @@ public class CaseService {
 			caseBO.setCaseCount(countEmbeddableBO);
 		}
 		countEmbeddableBO.setActiveCases(countEmbeddableBO.getActiveCases()
-				.add(newStateCase.getActiveCases()));
-		countEmbeddableBO.setDeathCases(countEmbeddableBO.getDeathCases().add(
-				newStateCase.getDeathCases()));
+				+ newStateCase.getActiveCases());
+		countEmbeddableBO.setDeathCases(countEmbeddableBO.getDeathCases()
+				+ newStateCase.getDeathCases());
 		countEmbeddableBO.setRecoveredCases(countEmbeddableBO
-				.getRecoveredCases().add(newStateCase.getRecoveredCases()));
+				.getRecoveredCases() + newStateCase.getRecoveredCases());
 
 		LOGGER.debug("Persisting updated case status for State Code : {}",
 				caseBO.getState().getStateCode());

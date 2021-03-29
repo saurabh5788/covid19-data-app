@@ -1,35 +1,33 @@
 package com.ssingh.covid19.entity;
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class CountEmbeddableBO {
 	@Column(name = "active_cases")
-	private BigInteger activeCases = BigInteger.ZERO;
+	private long activeCases;
 	@Column(name = "death_cases")
-	private BigInteger deathCases = BigInteger.ZERO;
+	private long deathCases;
 	@Column(name = "recovered_cases")
-	private BigInteger recoveredCases = BigInteger.ZERO;
+	private long recoveredCases;
 	
-	public BigInteger getActiveCases() {
+	public long getActiveCases() {
 		return activeCases;
 	}
-	public void setActiveCases(BigInteger activeCases) {
+	public void setActiveCases(long activeCases) {
 		this.activeCases = activeCases;
 	}
-	public BigInteger getDeathCases() {
+	public long getDeathCases() {
 		return deathCases;
 	}
-	public void setDeathCases(BigInteger deathCases) {
+	public void setDeathCases(long deathCases) {
 		this.deathCases = deathCases;
 	}
-	public BigInteger getRecoveredCases() {
+	public long getRecoveredCases() {
 		return recoveredCases;
 	}
-	public void setRecoveredCases(BigInteger recoveredCases) {
+	public void setRecoveredCases(long recoveredCases) {
 		this.recoveredCases = recoveredCases;
 	}
 }
