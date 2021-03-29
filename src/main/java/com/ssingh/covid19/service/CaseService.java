@@ -7,12 +7,13 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.ssingh.covid19.annotation.Loggable;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.CaseDTO;
 import com.ssingh.covid19.entity.CaseBO;
@@ -28,13 +29,13 @@ public class CaseService {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(StateService.class);
 
-	private RabbitTemplate jmsTemplate;
+	private AmqpTemplate jmsTemplate;
 	private Queue stateCaseUpdateQueue;
 	private CaseRepository caseRepository;
 	private StateRepository stateRepository;
 
 	@Autowired
-	public CaseService(RabbitTemplate jmsTemplate, Queue stateCaseUpdateQueue,
+	public CaseService(AmqpTemplate jmsTemplate, Queue stateCaseUpdateQueue,
 			CaseRepository caseRepository, StateRepository stateRepository) {
 		this.jmsTemplate = jmsTemplate;
 		this.stateCaseUpdateQueue = stateCaseUpdateQueue;
@@ -42,6 +43,7 @@ public class CaseService {
 		this.stateRepository = stateRepository;
 	}
 
+	@Loggable
 	public boolean addNewStateUpdate(@Valid CaseDTO caseDto) {
 		LOGGER.debug("Sending Mesage : {}", caseDto);
 		boolean sentStatus = false;
@@ -50,6 +52,7 @@ public class CaseService {
 		return sentStatus;
 	}
 
+	@Loggable
 	public CaseDTO fetchStateCase(@ValidStateCode String code) {
 		LOGGER.info("Fetching State Case");
 		LOGGER.debug("Fetching State Case : {}", code);
@@ -75,6 +78,7 @@ public class CaseService {
 		return stateCaseDto;
 	}
 
+	@Loggable
 	public CaseDTO updateStateCase(@Valid CaseDTO newStateCase) {
 		Optional<StateBO> stateOp = stateRepository
 				.findByStateCode(newStateCase.getStateCode());
