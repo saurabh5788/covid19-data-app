@@ -90,6 +90,10 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.4</version>
 		</dependency>
+		<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+				</dependency>
 
 	</dependencies>
 
@@ -156,10 +160,7 @@
 				<spring.profiles.active>heroku</spring.profiles.active>
 			</properties>
 			<dependencies>
-				<dependency>
-					<groupId>mysql</groupId>
-					<artifactId>mysql-connector-java</artifactId>
-				</dependency>
+				
 			</dependencies>
 		</profile>
 	</profiles>
