@@ -23,7 +23,8 @@
 - https://covid19-data-app-india.herokuapp.com/api/state/list
 - https://covid19-data-app-india.herokuapp.com/api/state/{code}
 
-##Other Details
+## Data References
 - State details reference : https://en.wikipedia.org/wiki/States_and_union_territories_of_India
+- State Population : https://www.indiatoday.in/education-today/gk-current-affairs/story/indian-states-with-highest-population-1358414-2018-10-08
 
 ## Future Additions

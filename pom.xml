@@ -15,7 +15,7 @@
 	<description>Covid19 Data App</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<spring-cloud.version>2020.0.1</spring-cloud.version>		
 	</properties>
 	<dependencies>
 		<!-- Spring Boot Starters -->
@@ -85,6 +85,12 @@
 			<artifactId>commons-collections4</artifactId>
 			<version>4.4</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>

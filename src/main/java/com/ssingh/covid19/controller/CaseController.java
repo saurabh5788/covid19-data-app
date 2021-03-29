@@ -1,31 +1,52 @@
 package com.ssingh.covid19.controller;
 
-import java.math.BigInteger;
+import javax.validation.Valid;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ssingh.covid19.annotation.ApiRestController;
-import com.ssingh.covid19.dto.StateDetailDTO;
+import com.ssingh.covid19.annotation.ValidStateCode;
+import com.ssingh.covid19.dto.CaseDTO;
+import com.ssingh.covid19.service.CaseService;
 
+/**
+ * API Controller for managing Covid Cases.
+ * 
+ * @author Saurabh Singh
+ */
 @ApiRestController("/case")
+@Validated
 public class CaseController {
-	
-	private RabbitTemplate jmsTemplate;
-	private Queue queue;
-	
-	public CaseController(RabbitTemplate jmsTemplate, Queue queue){
-		this.jmsTemplate = jmsTemplate;
-		this.queue = queue;
+	private CaseService caseService;
+
+	@Autowired
+	public CaseController(CaseService caseService) {
+		this.caseService = caseService;
 	}
-	
-	@GetMapping(value = "/dummy")
-	public void getAllStates() {
-		StateDetailDTO state = new StateDetailDTO();
-		state.setStateCode("HR");
-		state.setStateName("Haryana");
-		state.setStatePopulation(BigInteger.valueOf(6876768));
-		jmsTemplate.convertAndSend(queue.getName(), state);
+
+	@PostMapping(value = "/add")
+	public ResponseEntity<Void> updateStateCase(
+			@Valid @RequestBody CaseDTO caseDto) {
+		boolean status = caseService.addNewStateUpdate(caseDto);
+		if (status)
+			return ResponseEntity.status(HttpStatus.OK).build();
+		else
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.build();
+	}
+
+	@GetMapping(value = "/{code}")
+	public ResponseEntity<CaseDTO> fetchStateCase(
+			@ValidStateCode @PathVariable("code") String code) {
+		CaseDTO caseDto = caseService.fetchStateCase(code);
+		ResponseEntity<CaseDTO> response = ResponseEntity.ok(caseDto);
+		return response;
 	}
 }

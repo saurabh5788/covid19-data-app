@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -32,6 +33,7 @@ public class JacksonConfig {
 		builder.indentOutput(true);
 		builder.featuresToDisable(SerializationFeature.WRAP_ROOT_VALUE);
 		builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		builder.featuresToEnable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		// builder.serializers(new AppCustomSerializer());
 
 		SimpleModule instantModule = new SimpleModule();
@@ -42,7 +44,6 @@ public class JacksonConfig {
 	}
 
 	private static class InstantSerializer extends JsonSerializer<Instant> {
-
 		@Override
 		public void serialize(Instant value, JsonGenerator gen,
 				SerializerProvider serializers) throws IOException,
