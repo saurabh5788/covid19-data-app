@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="STATE_TABLE")
+@Table(name = "state_table")
 public class StateBO {
 	@Id
 	@GeneratedValue
@@ -22,11 +22,12 @@ public class StateBO {
 	public void setId(long id) {
 		this.id = id;
 	}
-	@Column(length = 2, nullable = false, unique = true, updatable = false)
+
+	@Column(name = "state_code", length = 2, nullable = false, unique = true, updatable = false)
 	private String stateCode;
-	@Column(length = 50, nullable = false, unique = true, updatable = false)
+	@Column(name = "state_name", length = 50, nullable = false, unique = true, updatable = false)
 	private String stateName;
-	@Column(length = 50)
+	@Column(name = "population")
 	private BigInteger population;
 
 	public String getStateCode() {

@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CASE_TABLE")
+@Table(name = "case_table")
 public class CaseBO {
 	@Id
 	@GeneratedValue
@@ -26,7 +26,7 @@ public class CaseBO {
 	private CountEmbeddableBO caseCount;
 
 	@OneToOne(optional = false)
-	@JoinColumn(name = "STATE_FK_ID", nullable = false, updatable = false, unique = true)
+	@JoinColumn(name = "state_fk_id", nullable = false, updatable = false, unique = true)
 	private StateBO state;
 
 	public StateBO getState() {
