@@ -5,13 +5,12 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - Java 8 with Spring Boot
 - JPA : Hibernate (Default)
 - Embedded Server : Undertow
-- PAAS : Heroku
+- Hosting : Heroku (PAAS)
 - Validation : Hibernate-validator (Default)
 - Caching : Simple ConcurrentHashMap (Default)
 - Messaging : RabbitMQ (@cloudamqp.com)
 - DB : H2 (Local), MySQL (Heroku)
 - API Doc : Swagger 
-- Hosting : Heroku (PAAS)
 
 ## Application Features
 - Profiling : local & heroku 
