@@ -48,5 +48,5 @@ $ mvnw spring-boot:run -DENV=local
 - State Population : https://www.indiatoday.in/education-today/gk-current-affairs/story/indian-states-with-highest-population-1358414-2018-10-08
 
 ## Contribution
-- Saurabh Singh saurabh.singh5788@gmail.com
+- Saurabh Singh <saurabh.singh5788@gmail.com>
 
