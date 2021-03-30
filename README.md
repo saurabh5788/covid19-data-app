@@ -11,6 +11,7 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - Messaging : RabbitMQ (@cloudamqp.com)
 - DB : H2 (Local), MySQL (Heroku)
 - API Doc : Swagger 
+- API Security : JWT Token
 
 ## Application Features
 - Profiling : local & heroku 
@@ -28,18 +29,19 @@ $ git clone https://github.com/saurabh5788/covid19-data-app.git
 ```
 $ mvnw spring-boot:run -DENV=local
 ```
-4. Navigate to `http://localhost:8081/swagger-ui.html` in your browser to check everything is working correctly.
-5. Make a GET request to `http://localhost:8081/jwt/token` with the `username` and `password` sent as Headers parameters. You will get valid token like below.
+4. Navigate to `http://localhost:8081/api/swagger-ui.html` in your browser to check everything is working correctly.
+5. Make a GET request to `http://localhost:8081/api/jwt/token` with the `username` and `password` sent as Headers parameters. In case of valid credentials the response will be JWT Token as below:
 ```javascript
 {
   "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE2MTcxMDM4NDYsImlhdCI6MTYxNzEwMzU0Nn0.Mrd-KKz1HmHDmXqEst1i9HTi7E1i10AtykIn_Xfubkwx7cQ2lhDHNGYS7q__8BEffhjFX7iFLpj51YUHA7Av5A"
 }
 ```
-6. For every subsequent requests add `Authorization` header with `Authorization: Bearer <token>`
+It will be valid for 5 minutes.
+6. Add `Authorization` header with `Authorization: Bearer <token>` for every request to secured endpoint.
 
 
 ## URLs
-- API Docs : https://covid19-data-app-india.herokuapp.com/api/swagger-ui/
+- API Docs : http://localhost:8081/api/swagger-ui/
 - Local H2 DB URL : http://localhost:8081/api/h2-console
 
 ## Data References
