@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class UserDTO extends AbstractDTO {
 	private static final long serialVersionUID = -8341212091161470591L;
 	@NotBlank
+	private String name;
+	@NotBlank
 	@Email
 	private String username;
 	@NotBlank
@@ -17,10 +19,17 @@ public class UserDTO extends AbstractDTO {
 	private String password;
 	
 	public UserDTO(){}
-	public UserDTO(String username, String password) {
+	public UserDTO(String name, String username) {
 		super();
+		this.name = name;
 		this.username = username;
-		this.password = password;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getUsername() {
 		return username;

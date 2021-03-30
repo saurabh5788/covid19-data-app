@@ -25,9 +25,7 @@ import com.ssingh.covid19.constants.ApplicationConstants;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(SecurityConfig.class);
-
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired

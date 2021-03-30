@@ -23,6 +23,10 @@ public class UserBO {
 		this.id = id;
 	}
 
+	
+	@Column(name = "name", length = 100, nullable = false)
+	@NotEmpty
+	private String name;
 	@Column(name = "username", length = 100, unique = true, nullable = false)
 	@NotEmpty
 	@Email
@@ -30,6 +34,14 @@ public class UserBO {
 	@Column(name = "password", length = 100, nullable = false)
 	@NotEmpty	
 	private String password;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getUsername() {
 		return username;

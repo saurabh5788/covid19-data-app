@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssingh.covid19.dto.UserDTO;
@@ -19,6 +20,8 @@ public class JWTUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
@@ -37,10 +40,11 @@ public class JWTUserDetailsService implements UserDetailsService {
 	public UserDTO addNewUser(UserDTO user) {
 		UserBO userBO = new UserBO();
 		userBO.setUsername(user.getUsername());
-		userBO.setPassword(user.getPassword());
+		userBO.setPassword(passwordEncoder.encode(user.getPassword()));
+		userBO.setName(user.getName());
 
 		userBO = userRepository.save(userBO);
-		user = new UserDTO(userBO.getUsername(),null);
+		user = new UserDTO(userBO.getUsername(),userBO.getName());
 		return user;
 	}
 }
