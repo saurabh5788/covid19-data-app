@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("Error")
+@JsonRootName("error")
 public class ApplicationErrorDTO extends AbstractDTO {
 
 	private static final long serialVersionUID = 1790819555078951083L;

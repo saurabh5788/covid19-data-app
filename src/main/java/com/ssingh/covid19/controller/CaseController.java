@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.ssingh.covid19.annotation.ApiRestController;
+import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.CaseDTO;
 import com.ssingh.covid19.service.CaseService;
@@ -21,7 +21,7 @@ import com.ssingh.covid19.service.CaseService;
  * 
  * @author Saurabh Singh
  */
-@ApiRestController("/case")
+@ApiRestEndpoint("/case")
 @Validated
 public class CaseController {
 	private CaseService caseService;

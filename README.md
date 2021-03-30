@@ -19,19 +19,28 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - Actuator Monitoring
 
 ## Running Application on local Machine
-- Clone this repository
-- Build and run the project : 
-	```
-	mvnw clean install -DENV=local
-	java -jar target\covid19-data-app.jar
-	```
-	or
-	```
-	mvnw spring-boot:run -DENV=local
-	```
+1. Make sure you have [Java 8](https://www.java.com/download/) and GIT
+2. Clone this repository 
+```
+$ git clone https://github.com/saurabh5788/covid19-data-app.git
+```
+3. Run the project
+```
+$ mvnw spring-boot:run -DENV=local
+```
+4. Navigate to `http://localhost:8081/swagger-ui.html` in your browser to check everything is working correctly.
+5. Make a GET request to `http://localhost:8081/jwt/token` with the `username` and `password` sent as Headers parameters. You will get valid token like below.
+```javascript
+{
+  "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2UiLCJleHAiOjE2MTcxMDM4NDYsImlhdCI6MTYxNzEwMzU0Nn0.Mrd-KKz1HmHDmXqEst1i9HTi7E1i10AtykIn_Xfubkwx7cQ2lhDHNGYS7q__8BEffhjFX7iFLpj51YUHA7Av5A"
+}
+```
+6. For every subsequent requests add `Authorization` header with `Authorization: Bearer <token>`
 
-## REST Endpoints
-- https://covid19-data-app-india.herokuapp.com/api/swagger-ui/
+
+## URLs
+- API Docs : https://covid19-data-app-india.herokuapp.com/api/swagger-ui/
+- Local H2 DB URL : http://localhost:8081/api/h2-console
 
 ## Data References
 - State details reference : https://en.wikipedia.org/wiki/States_and_union_territories_of_India

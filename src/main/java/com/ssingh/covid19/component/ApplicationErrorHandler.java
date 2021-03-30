@@ -1,5 +1,7 @@
 package com.ssingh.covid19.component;
 
+import io.jsonwebtoken.JwtException;
+
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +43,7 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
+		ex.printStackTrace();
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				HttpStatus.BAD_REQUEST.value(), "Bad Request.");
 		List<ObjectError> errorList = ex.getAllErrors();
@@ -54,12 +57,14 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleExceptionInternal(Exception ex,
 			Object body, HttpHeaders headers, HttpStatus status,
 			WebRequest request) {
+		ex.printStackTrace();
 		return handleAllErrors(ex);
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<Object> handleConstraintViolationException(
 			ConstraintViolationException e) {
+		e.printStackTrace();
 		LOGGER.error(e.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				HttpStatus.UNPROCESSABLE_ENTITY.value(), "Validation Errors.");
@@ -73,6 +78,7 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ StateServiceException.class, CaseServiceException.class })
 	public ResponseEntity<Object> handleServiceErrors(ResponseStatusException e) {
+		e.printStackTrace();
 		Throwable rootCause = ExceptionUtils.getRootCause(e);
 		LOGGER.error(rootCause.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
@@ -84,9 +90,20 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(NoElementFoundException.class)
 	public ResponseEntity<Object> handleNotFoundErrors(NoElementFoundException e) {
+		e.printStackTrace();
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				e.getRawStatusCode(), "Element Not Found.");
 		errorDTO.addError(e.getReason());
+		return ResponseEntity.status(errorDTO.getStatus()).body(
+				errorDTO);
+	}
+	
+	@ExceptionHandler(JwtException.class)
+	public ResponseEntity<Object> handleAuthenticationErrors(JwtException e) {
+		//e.printStackTrace();
+		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
+				HttpStatus.UNAUTHORIZED.value(), "Element Not Found.");
+		errorDTO.addError("Secured Resource not authenticated properly.");
 		return ResponseEntity.status(errorDTO.getStatus()).body(
 				errorDTO);
 	}
@@ -94,6 +111,7 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ RuntimeException.class, Exception.class,
 			Throwable.class })
 	public ResponseEntity<Object> handleAllErrors(Throwable e) {
+		e.printStackTrace();
 		Throwable rootCause = ExceptionUtils.getRootCause(e);
 		LOGGER.error(rootCause.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(

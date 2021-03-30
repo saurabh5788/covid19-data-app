@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssingh.covid19.annotation.ApiRestController;
+import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.StateDTO;
 import com.ssingh.covid19.dto.StateWrapperDTO;
@@ -19,7 +19,7 @@ import com.ssingh.covid19.service.StateService;
  * 
  * @author Saurabh Singh
  */
-@ApiRestController("/state")
+@ApiRestEndpoint("/state")
 public class StateController {
 	private StateService stateService;
 

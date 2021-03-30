@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(produces = {
 		MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-public @interface ApiRestController {
+public @interface ApiRestEndpoint {
 	@AliasFor(annotation = RequestMapping.class)
 	String value() default "";
 

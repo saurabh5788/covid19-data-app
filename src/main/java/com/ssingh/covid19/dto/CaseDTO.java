@@ -3,7 +3,7 @@ package com.ssingh.covid19.dto;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.ssingh.covid19.annotation.ValidStateCode;
 
-@JsonRootName("Case")
+@JsonRootName("case")
 public class CaseDTO extends AbstractDTO {
 	private static final long serialVersionUID = -8341212091161470591L;
 

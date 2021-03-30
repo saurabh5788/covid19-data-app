@@ -9,8 +9,8 @@ import javax.persistence.InheritanceType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Entity
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractBO {
 	@Id
 	@GeneratedValue
