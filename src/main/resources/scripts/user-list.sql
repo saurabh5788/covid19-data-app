@@ -1,0 +1,1 @@
+INSERT INTO user_table (id, username, password) values (1, 'saurabh.singh5788@gmail.com', '$argon2id$v=19$m=4096,t=3,p=1$KapRc3IaujL57ws/QjqmKw$jJBsNWfqMWJXhHKvxrBQONLMD0rXRuMkGuMFJQzAOL0');

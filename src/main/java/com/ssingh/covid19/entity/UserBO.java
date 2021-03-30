@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_table")
@@ -24,13 +23,12 @@ public class UserBO {
 		this.id = id;
 	}
 
-	@Column(name = "user_name", length = 100, unique = true, nullable = false)
+	@Column(name = "username", length = 100, unique = true, nullable = false)
 	@NotEmpty
 	@Email
 	private String username;
-	@Column(name = "password", length = 20, nullable = false)
-	@NotEmpty
-	@Size(min = 8, max = 20)
+	@Column(name = "password", length = 100, nullable = false)
+	@NotEmpty	
 	private String password;
 
 	public String getUsername() {

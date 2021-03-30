@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -84,8 +85,7 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				e.getRawStatusCode(), "Application Error Ocurred.");
 		errorDTO.addError(e.getReason());
-		return ResponseEntity.status(errorDTO.getStatus()).body(
-				errorDTO);
+		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 
 	@ExceptionHandler(NoElementFoundException.class)
@@ -93,30 +93,24 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 		e.printStackTrace();
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				e.getRawStatusCode(), "Element Not Found.");
-		errorDTO.addError(e.getReason());
-		return ResponseEntity.status(errorDTO.getStatus()).body(
-				errorDTO);
+		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
-	
+
 	@ExceptionHandler(JwtException.class)
 	public ResponseEntity<Object> handleAuthenticationErrors(JwtException e) {
-		//e.printStackTrace();
+		LOGGER.error(e.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				HttpStatus.UNAUTHORIZED.value(), "Element Not Found.");
-		errorDTO.addError("Secured Resource not authenticated properly.");
-		return ResponseEntity.status(errorDTO.getStatus()).body(
-				errorDTO);
+				HttpStatus.UNAUTHORIZED.value(), "Token failed to be authorized.");
+		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 
 	@ExceptionHandler({ RuntimeException.class, Exception.class,
 			Throwable.class })
 	public ResponseEntity<Object> handleAllErrors(Throwable e) {
-		e.printStackTrace();
 		Throwable rootCause = ExceptionUtils.getRootCause(e);
 		LOGGER.error(rootCause.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				HttpStatus.INTERNAL_SERVER_ERROR.value(), "Unknown Error.");
-		return ResponseEntity.status(errorDTO.getStatus()).body(
-				errorDTO);
+				HttpStatus.INTERNAL_SERVER_ERROR.value(), "Application Error.");
+		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 }

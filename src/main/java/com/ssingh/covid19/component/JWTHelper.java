@@ -10,19 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.ssingh.covid19.constants.ApplicationConstants;
 
 @Component
 public class JWTHelper implements Serializable {
 
 	private static final long serialVersionUID = -2550185165626007488L;
 
-	@Value("${jwt.secret}")
-	private String secret;
+	@Autowired
+	private JWTProperties jwtProperties;
 
 	public String getUsernameFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
@@ -39,7 +37,7 @@ public class JWTHelper implements Serializable {
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
+		return Jwts.parser().setSigningKey(jwtProperties.getToken().get("secret")).parseClaimsJws(token)
 				.getBody();
 	}
 
@@ -71,9 +69,9 @@ public class JWTHelper implements Serializable {
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(
 						new Date(System.currentTimeMillis()
-								+ ApplicationConstants.JWT_TOKEN_VALIDITY_SEC
+								+ Long.parseLong(jwtProperties.getToken().get("validity"))
 								* 1000))
-				.signWith(SignatureAlgorithm.HS512, secret).compact();
+				.signWith(SignatureAlgorithm.HS512, jwtProperties.getToken().get("secret")).compact();
 	}
 
 	// validate token

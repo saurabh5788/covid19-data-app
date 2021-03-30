@@ -1,5 +1,5 @@
 # COVID19 Data BE Application (Demo Purpose)
-This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a basic back-end service which can collect the State wise Covid19 case updates and provide a consolidated data. 
+This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated data. 
 
 ## Technology/Library Stack
 - Java 8 with Spring Boot
@@ -18,6 +18,12 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - Caching
 - Logging
 - Actuator Monitoring
+- JWT Token based Authorization
+
+## Pending
+- Error Handling in Messaging
+- Implementation of User Roles
+- Token Expiration handling 
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT

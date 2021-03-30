@@ -3,12 +3,13 @@ package com.ssingh.covid19.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,13 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * Will be injected in Security AuthenticationManagerBuilder automatically,
-	 * so no need to explicit set passwordEncoder(...) for AuthenticationManager.
+	 * so no need to explicit set passwordEncoder(...) for
+	 * AuthenticationManager.
 	 * 
 	 * @return
 	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new Argon2PasswordEncoder();
+		return new Argon2PasswordEncoder(16, 32, 1, 1024, 10);
 	}
 
 	@Override
@@ -54,8 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Theses URLs are open
 				.antMatchers(ApplicationConstants.AUTH_WHITELIST).permitAll()
 				// Authenticate all other URLs.
-				.anyRequest().authenticated().and()
-		         .httpBasic();		
+				.anyRequest().authenticated().and().httpBasic();
 		// Disable Session Creation
 		httpSecurity.sessionManagement().sessionCreationPolicy(
 				SessionCreationPolicy.STATELESS);
@@ -81,6 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 */
 
 		auth.userDetailsService(userDetailsService);
+	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/h2-console/**");
 	}
 
 	@Override

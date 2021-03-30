@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,10 +38,11 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		final String requestJWTTokenHeader = request.getHeader("Authorization");
+		logger.debug(ToStringBuilder.reflectionToString(request));
 		logger.debug("Request Token Header : " + requestJWTTokenHeader);
 
-		String username = null;
 		String jwtToken = null;
+		String username = null;		
 		// JWT Token is in the form "Bearer token". Remove Bearer word and get
 		// only the Token
 		if (StringUtils.isNotBlank(requestJWTTokenHeader)

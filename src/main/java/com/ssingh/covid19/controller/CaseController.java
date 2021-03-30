@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.CaseDTO;
+import com.ssingh.covid19.dto.UserDTO;
 import com.ssingh.covid19.service.CaseService;
+import com.ssingh.covid19.service.JWTUserDetailsService;
 
 /**
  * API Controller for managing Covid Cases.
@@ -30,19 +33,20 @@ public class CaseController {
 	public CaseController(CaseService caseService) {
 		this.caseService = caseService;
 	}
-
-	@PostMapping(value = "/add")
+	
+	@PostMapping(value = { "/add", "/add/" }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Void> updateStateCase(
 			@Valid @RequestBody CaseDTO caseDto) {
 		boolean status = caseService.addNewStateUpdate(caseDto);
 		if (status)
-			return ResponseEntity.status(HttpStatus.OK).build();
+			return ResponseEntity.ok().build();
 		else
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.build();
 	}
 
-	@GetMapping(value = "/{code}")
+	@GetMapping(value = { "/{code}", "/{code}/" })
 	public ResponseEntity<CaseDTO> fetchStateCase(
 			@ValidStateCode @PathVariable("code") String code) {
 		CaseDTO caseDto = caseService.fetchStateCase(code);
