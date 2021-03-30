@@ -21,6 +21,7 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - JWT Token based Authorization
 
 ## Pending
+- Error Handling with standardized Codes
 - Error Handling in Messaging
 - Implementation of User Roles
 - Token Expiration handling 
@@ -49,7 +50,7 @@ $ mvnw spring-boot:run -DENV=local
 - API Docs : http://localhost:8081/api/swagger-ui/
 - Local H2 DB URL : http://localhost:8081/api/h2-console
 
-## Data References
+## State Data References
 - State details reference : https://en.wikipedia.org/wiki/States_and_union_territories_of_India
 - State Population : https://www.indiatoday.in/education-today/gk-current-affairs/story/indian-states-with-highest-population-1358414-2018-10-08
 
