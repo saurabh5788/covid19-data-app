@@ -1,10 +1,10 @@
 # COVID19 Data BE Application (Demo Purpose)
-This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated data. 
+This is a sample Java / Spring Boot (version 2.4.3) application. It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. 
 
 ## Technology/Library Stack
 - Java 8 with Spring Boot
 - JPA : Hibernate (Default)
-- Embedded Server : Undertow
+- Server : Undertow (Embedded)
 - Hosting : Heroku (PAAS)
 - Validation : Hibernate-validator (Default)
 - Caching : Simple ConcurrentHashMap (Default)
@@ -12,19 +12,14 @@ This is a sample Java / Maven / Spring Boot (version 2.4.3) application. It is a
 - DB : H2 (Local), MySQL (Heroku)
 - API Doc : Swagger 
 - API Security : JWT Token
-
-## Application Features
-- Profiling : local & heroku 
-- Caching
-- Logging
-- Actuator Monitoring
-- JWT Token based Authorization
+- Monitoring : Actuator, Micrometer
 
 ## Pending
-- Error Handling with standardized Codes
+- Standardized Error Codes
 - Error Handling in Messaging
 - Implementation of User Roles
 - Token Expiration handling 
+- Google Signup/Signin
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT
@@ -44,7 +39,6 @@ $ mvnw spring-boot:run -DENV=local
 }
 ```
 6. Add `Authorization` header with `Authorization: Bearer <token>` for every request to secured endpoint.
-
 
 ## URLs
 - API Docs : http://localhost:8081/api/swagger-ui/

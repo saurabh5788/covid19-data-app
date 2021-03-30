@@ -15,7 +15,6 @@
 	<description>Covid19 Data App</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>2020.0.1</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<!-- Spring Boot Starters -->
@@ -116,17 +115,7 @@
 
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -149,7 +138,7 @@
 			</activation>
 			<properties>
 				<java.version>1.8</java.version>
-				<maven.test.skip>true</maven.test.skip>
+				<!-- <maven.test.skip>true</maven.test.skip>-->
 				<spring.profiles.active>local</spring.profiles.active>
 			</properties>
 			<dependencies>
