@@ -1,8 +1,8 @@
 # COVID19 Data BE Application (Demo Purpose)
-This is a sample Java / Spring Boot (version 2.4.3) application. It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. 
+It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. 
 
 ## Technology/Library Stack
-- Java 8 with Spring Boot
+- Java 8 with Spring Boot (2.4.3)
 - JPA : Hibernate (Default)
 - Server : Undertow (Embedded)
 - Hosting : Heroku (PAAS)
@@ -20,6 +20,8 @@ This is a sample Java / Spring Boot (version 2.4.3) application. It is a basic b
 - Implementation of User Roles
 - Token Expiration handling 
 - Google Signup/Signin
+- CI/CD Pipeline using Travis
+- Implementation of Spring Batch for purpose of scheduling all update messages accumulated in 1 day at once.
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT
