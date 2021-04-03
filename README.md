@@ -1,5 +1,5 @@
 # COVID19 Data Application BE Application
-It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. The idea is a Message queue will be exposed to the entity (which can be another service) who will provide COVID case update by passing message
+It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. The idea is to expose a Message queue to the entity (which can be another service) which will provide Covid19 case update by passing message in predefined format.
 
 ## Technology/Library Stack
 - Java 8 with Spring Boot (2.4.3)
