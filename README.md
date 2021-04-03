@@ -1,4 +1,4 @@
-# COVID19 Data BE Application
+# COVID19 Data Application BE Application
 It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. The idea is a Message queue will be exposed to the entity (which can be another service) who will provide COVID case update by passing message
 
 ## Technology/Library Stack
