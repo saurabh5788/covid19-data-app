@@ -2,6 +2,8 @@ package com.ssingh.covid19.service;
 
 import java.util.Optional;
 
+import javax.validation.ValidationException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +82,7 @@ public class CaseServiceImpl implements CaseService {
 		Optional<StateBO> stateOp = stateRepository
 				.findByStateCode(newStateCase.getStateCode());
 		if (!stateOp.isPresent()) {
-			throw new NoElementFoundException("Invalid State Code : "
+			throw new ValidationException("Invalid State Code : "
 					+ newStateCase.getStateCode());
 		}
 

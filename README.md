@@ -1,5 +1,5 @@
 # COVID19 Data BE Application (Demo Purpose)
-It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. 
+It is a basic back-end service which collects the State wise Covid19 case updates and provide a consolidated information. The idea is a Message queue will be exposed to the entity (which can be another service) who will provide COVID case update by passing message
 
 ## Technology/Library Stack
 - Java 8 with Spring Boot (2.4.3)
@@ -66,7 +66,7 @@ It will take "username" and "password" in headers.
 4. To get State wise State detail
 - GET https://covid19-data-app-india.herokuapp.com//api/state/<<STATE_CODE>>
 Ex. https://covid19-data-app-india.herokuapp.com//api/state/hr
-5. To create a new User.
+5. To create a new Case Update. (Asynchronous by means of Queue)
 - POST : https://covid19-data-app-india.herokuapp.com/api/case/add
 Sample Request
 ```javascript

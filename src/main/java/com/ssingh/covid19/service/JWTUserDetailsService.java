@@ -28,8 +28,7 @@ public class JWTUserDetailsService implements UserDetailsService {
 			throws UsernameNotFoundException {
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if (!userBOOp.isPresent()) {
-			throw new UsernameNotFoundException("No user found with username: "
-					+ username);
+			throw new UsernameNotFoundException("Invalid Credentials.");
 		}
 		UserBO userBO = userBOOp.get();
 		return new User(userBO.getUsername(), userBO.getPassword(),

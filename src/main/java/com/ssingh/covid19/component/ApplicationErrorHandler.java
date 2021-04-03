@@ -16,12 +16,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.ssingh.covid19.dto.ApplicationErrorDTO;
 import com.ssingh.covid19.exception.CaseServiceException;
 import com.ssingh.covid19.exception.NoElementFoundException;
@@ -39,13 +41,30 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ApplicationErrorHandler.class);
 
+	// BAD Request
+	// Validation
+	// Not Found
+	// Authentication (JWT)
+	// Service Error
+
+	@Override
+	protected ResponseEntity<Object> handleMissingServletRequestParameter(
+			MissingServletRequestParameterException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
+		LOGGER.error(ex.getMessage());
+		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
+				HttpStatus.BAD_REQUEST.value(), "Parameter(s) missing.");
+		errorDTO.addError(ex.getParameterName());
+		return ResponseEntity.badRequest().body(errorDTO);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		ex.printStackTrace();
+		LOGGER.error(ex.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				HttpStatus.BAD_REQUEST.value(), "Bad Request.");
+				HttpStatus.BAD_REQUEST.value(), "Validation Error(s).");
 		List<ObjectError> errorList = ex.getAllErrors();
 		for (ObjectError error : errorList) {
 			errorDTO.addError(error.getDefaultMessage());
@@ -53,28 +72,29 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(errorDTO);
 	}
 
-	@Override
-	public ResponseEntity<Object> handleExceptionInternal(Exception ex,
-			Object body, HttpHeaders headers, HttpStatus status,
-			WebRequest request) {
-		ex.printStackTrace();
-		return handleAllErrors(ex);
-	}
-
-	@ExceptionHandler(ConstraintViolationException.class)
+	@ExceptionHandler({ ConstraintViolationException.class })
 	public ResponseEntity<Object> handleConstraintViolationException(
-			ConstraintViolationException e) {
-		e.printStackTrace();
-		LOGGER.error(e.getMessage());
+			ConstraintViolationException ex) {
+		ex.printStackTrace();
+		LOGGER.error(ex.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				HttpStatus.UNPROCESSABLE_ENTITY.value(), "Validation Errors.");
-		Set<ConstraintViolation<?>> constraintViolations = e
+				HttpStatus.BAD_REQUEST.value(), "Validation Error(s).");
+		Set<ConstraintViolation<?>> constraintViolations = ex
 				.getConstraintViolations();
 		for (ConstraintViolation<?> violation : constraintViolations) {
 			errorDTO.addError(violation.getMessage());
 		}
-		return ResponseEntity.unprocessableEntity().body(errorDTO);
+		return ResponseEntity.badRequest().body(errorDTO);
 	}
+	
+	@ExceptionHandler(NoElementFoundException.class)
+	public ResponseEntity<Object> handleNotFoundErrors(NoElementFoundException e) {
+		e.printStackTrace();
+		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
+				e.getRawStatusCode(), "Element Not Found.");
+		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
+	}
+
 
 	@ExceptionHandler({ StateServiceException.class, CaseServiceException.class })
 	public ResponseEntity<Object> handleServiceErrors(ResponseStatusException e) {
@@ -87,19 +107,13 @@ public class ApplicationErrorHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 
-	@ExceptionHandler(NoElementFoundException.class)
-	public ResponseEntity<Object> handleNotFoundErrors(NoElementFoundException e) {
-		e.printStackTrace();
-		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				e.getRawStatusCode(), "Element Not Found.");
-		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
-	}
-
+	
 	@ExceptionHandler(JwtException.class)
 	public ResponseEntity<Object> handleAuthenticationErrors(JwtException e) {
 		LOGGER.error(e.getMessage());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
-				HttpStatus.UNAUTHORIZED.value(), "Token failed to be authorized.");
+				HttpStatus.UNAUTHORIZED.value(),
+				"Token failed to be authorized.");
 		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 
