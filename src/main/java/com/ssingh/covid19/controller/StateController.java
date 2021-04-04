@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -11,7 +12,6 @@ import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.StateDTO;
 import com.ssingh.covid19.dto.StateWrapperDTO;
-import com.ssingh.covid19.service.JWTUserDetailsService;
 import com.ssingh.covid19.service.StateService;
 
 /**
@@ -27,9 +27,6 @@ public class StateController {
 	public StateController(StateService stateService) {
 		this.stateService = stateService;
 	}
-	
-	@Autowired
-	private JWTUserDetailsService userDetailsService;
 	
 	@GetMapping(value = "/list")
 	public ResponseEntity<StateWrapperDTO> getAllStates() {

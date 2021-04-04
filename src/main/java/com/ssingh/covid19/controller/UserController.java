@@ -25,7 +25,7 @@ import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.component.JWTHelper;
 import com.ssingh.covid19.dto.JWTResponseDTO;
 import com.ssingh.covid19.dto.UserDTO;
-import com.ssingh.covid19.service.JWTUserDetailsService;
+import com.ssingh.covid19.service.UserDetailsServiceImpl;
 
 @ApiRestEndpoint("/user")
 @Validated
@@ -38,7 +38,7 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private JWTUserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
 	private JWTHelper jwtHelper;
