@@ -56,9 +56,8 @@ public class CaseServiceImpl implements CaseService {
 		code = StringUtils.lowerCase(code);
 		Optional<CaseBO> stateCaseBOOp = caseRepository
 				.findByStateStateCode(code);
-		CaseDTO stateCaseDto = null;
+		CaseDTO stateCaseDto = new CaseDTO();
 		if (stateCaseBOOp.isPresent()) {
-			stateCaseDto = new CaseDTO();
 			LOGGER.debug("State Case : {}", stateCaseBOOp.get());
 			CaseBO fetchedCaseBO = stateCaseBOOp.get();
 			
@@ -75,8 +74,11 @@ public class CaseServiceImpl implements CaseService {
 			if (!stateOp.isPresent()) {
 				throw new CaseServiceException("Invalid State Code : "
 						+ code);
-			}	
-			stateCaseDto = new CaseDTO();
+			}							
+			stateCaseDto.setActiveCases(Long.valueOf(0));
+			stateCaseDto
+					.setDeathCases(Long.valueOf(0));
+			stateCaseDto.setRecoveredCases(Long.valueOf(0));	
 		}
 		stateCaseDto.setStateCode(code);
 		return stateCaseDto;
