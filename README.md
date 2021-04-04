@@ -22,6 +22,7 @@ It is a basic back-end service which collects the State wise Covid19 case update
 - Google Signup/Signin
 - CI/CD Pipeline using Travis
 - Implementation of Spring Batch for purpose of scheduling all update messages accumulated in 1 day at once.
+- Email Notification for Users.
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT
@@ -50,7 +51,7 @@ $ mvnw spring-boot:run -DENV=local
 ## API Details
 1. To create a new User.
 - POST : https://covid19-data-app-be.herokuapp.com/api/user/add
-Sample Request
+Sample Request : Username must be a valid Email & Password size must be between 8 and 50
 ```javascript
 {
 	"name":"Saurabh Singh",

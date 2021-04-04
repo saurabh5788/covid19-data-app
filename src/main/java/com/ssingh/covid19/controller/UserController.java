@@ -52,7 +52,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/jwt")
-	public ResponseEntity<JWTResponseDTO> updateStateCase(
+	public ResponseEntity<JWTResponseDTO> createToken(
 			@NotBlank @RequestHeader("username") String userName,
 			@NotBlank @RequestHeader("password") String password) {
 		LOGGER.debug("Authenticating User : {}", userName);

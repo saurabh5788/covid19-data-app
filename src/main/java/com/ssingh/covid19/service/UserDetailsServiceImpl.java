@@ -28,7 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException {
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if (!userBOOp.isPresent()) {
-			throw new UsernameNotFoundException("No Username found : "+username);
+			throw new UsernameNotFoundException("No Username found : "
+					+ username);
 		}
 		UserBO userBO = userBOOp.get();
 		return new User(userBO.getUsername(), userBO.getPassword(),
@@ -43,7 +44,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userBO.setName(user.getName());
 
 		userBO = userRepository.save(userBO);
-		user = new UserDTO(userBO.getUsername(),userBO.getName());
+
+		user = new UserDTO(userBO.getUsername(), userBO.getName());
 		return user;
 	}
 }
