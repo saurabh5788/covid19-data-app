@@ -2,8 +2,6 @@ package com.ssingh.covid19.service;
 
 import java.util.Optional;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,7 @@ import com.ssingh.covid19.dto.CaseDTO;
 import com.ssingh.covid19.entity.CaseBO;
 import com.ssingh.covid19.entity.CountEmbeddableBO;
 import com.ssingh.covid19.entity.StateBO;
-import com.ssingh.covid19.exception.NoElementFoundException;
+import com.ssingh.covid19.exception.CaseServiceException;
 import com.ssingh.covid19.repository.CaseRepository;
 import com.ssingh.covid19.repository.StateRepository;
 
@@ -58,21 +56,29 @@ public class CaseServiceImpl implements CaseService {
 		code = StringUtils.lowerCase(code);
 		Optional<CaseBO> stateCaseBOOp = caseRepository
 				.findByStateStateCode(code);
-		if (!stateCaseBOOp.isPresent()) {
-			throw new NoElementFoundException(
-					"Either State Code is invalid or no Case details present for this State : "
-							+ code);
+		CaseDTO stateCaseDto = null;
+		if (stateCaseBOOp.isPresent()) {
+			stateCaseDto = new CaseDTO();
+			LOGGER.debug("State Case : {}", stateCaseBOOp.get());
+			CaseBO fetchedCaseBO = stateCaseBOOp.get();
+			
+			stateCaseDto.setActiveCases(fetchedCaseBO.getCaseCount()
+					.getActiveCases());
+			stateCaseDto
+					.setDeathCases(fetchedCaseBO.getCaseCount().getDeathCases());
+			stateCaseDto.setRecoveredCases(fetchedCaseBO.getCaseCount()
+					.getRecoveredCases());
+			stateCaseDto.setStateCode(code);
 		}
-		LOGGER.debug("State Case : {}", stateCaseBOOp.get());
-		CaseBO fetchedCaseBO = stateCaseBOOp.get();
-		CaseDTO stateCaseDto = new CaseDTO();
-		stateCaseDto.setActiveCases(fetchedCaseBO.getCaseCount()
-				.getActiveCases());
-		stateCaseDto
-				.setDeathCases(fetchedCaseBO.getCaseCount().getDeathCases());
-		stateCaseDto.setRecoveredCases(fetchedCaseBO.getCaseCount()
-				.getRecoveredCases());
-		stateCaseDto.setStateCode(code);
+		else{
+			Optional<StateBO> stateOp = stateRepository
+					.findByStateCode(code);
+			if (!stateOp.isPresent()) {
+				throw new CaseServiceException("Invalid State Code : "
+						+ code);
+			}	
+			stateCaseDto = new CaseDTO();
+		}
 		return stateCaseDto;
 	}
 
@@ -82,7 +88,7 @@ public class CaseServiceImpl implements CaseService {
 		Optional<StateBO> stateOp = stateRepository
 				.findByStateCode(newStateCase.getStateCode());
 		if (!stateOp.isPresent()) {
-			throw new ValidationException("Invalid State Code : "
+			throw new CaseServiceException("Invalid State Code : "
 					+ newStateCase.getStateCode());
 		}
 

@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import com.ssingh.covid19.annotation.ValidStateCode;
 import com.ssingh.covid19.dto.StateDTO;
 import com.ssingh.covid19.entity.StateBO;
-import com.ssingh.covid19.exception.NoElementFoundException;
 import com.ssingh.covid19.exception.StateServiceException;
 import com.ssingh.covid19.repository.StateRepository;
 
@@ -64,7 +63,7 @@ public class StateServiceImpl implements StateService {
 		Optional<StateBO> stateOp = stateRepository.findByStateCode(code);
 
 		if (!stateOp.isPresent()) {
-			throw new NoElementFoundException(
+			throw new StateServiceException(
 					"No State Details found for State Code : " + code);
 		}
 

@@ -3,7 +3,6 @@ package com.ssingh.covid19.component;
 import io.jsonwebtoken.ExpiredJwtException;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -43,7 +42,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
 		String jwtToken = null;
 		String username = null;		
-		// JWT Token is in the form "Bearer token". Remove Bearer word and get
+		// JWT Token is in the form "Bearer <<Token>>". Remove Bearer word and get
 		// only the Token
 		if (StringUtils.isNotBlank(requestJWTTokenHeader)
 				&& requestJWTTokenHeader

@@ -16,7 +16,7 @@ import com.ssingh.covid19.entity.UserBO;
 import com.ssingh.covid19.repository.UserRepository;
 
 @Service
-public class JWTUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -28,7 +28,7 @@ public class JWTUserDetailsService implements UserDetailsService {
 			throws UsernameNotFoundException {
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if (!userBOOp.isPresent()) {
-			throw new UsernameNotFoundException("Invalid Credentials.");
+			throw new UsernameNotFoundException("No Username found : "+username);
 		}
 		UserBO userBO = userBOOp.get();
 		return new User(userBO.getUsername(), userBO.getPassword(),

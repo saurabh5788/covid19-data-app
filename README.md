@@ -49,7 +49,7 @@ $ mvnw spring-boot:run -DENV=local
 
 ## API Details
 1. To create a new User.
-- POST : https://covid19-data-app-india.herokuapp.com/api/user/add
+- POST : https://covid19-data-app-be.herokuapp.com/api/user/add
 Sample Request
 ```javascript
 {
@@ -59,15 +59,15 @@ Sample Request
 }
 ```
 2. To generate JWT Token
-- GET https://covid19-data-app-india.herokuapp.com/api/user/jwt
+- GET https://covid19-data-app-be.herokuapp.com/api/user/jwt
 It will take "username" and "password" in headers.
 3. To get configured State details
-- GET https://covid19-data-app-india.herokuapp.com/api/state/list	
+- GET https://covid19-data-app-be.herokuapp.com/api/state/list	
 4. To get State wise State detail
-- GET https://covid19-data-app-india.herokuapp.com//api/state/<<STATE_CODE>>
-Ex. https://covid19-data-app-india.herokuapp.com//api/state/hr
+- GET https://covid19-data-app-be.herokuapp.com//api/state/<<STATE_CODE>>
+Ex. https://covid19-data-app-be.herokuapp.com//api/state/hr
 5. To create a new Case Update. (Asynchronous by means of Queue)
-- POST : https://covid19-data-app-india.herokuapp.com/api/case/add
+- POST : https://covid19-data-app-be.herokuapp.com/api/case/add
 Sample Request
 ```javascript
 {
@@ -78,8 +78,8 @@ Sample Request
 }
 ```
 6. To get Case Details for a State
-- GET : https://covid19-data-app-india.herokuapp.com/api/case/<<STATE_CODE>>
-Ex. https://covid19-data-app-india.herokuapp.com/api/case/hr
+- GET : https://covid19-data-app-be.herokuapp.com/api/case/<<STATE_CODE>>
+Ex. https://covid19-data-app-be.herokuapp.com/api/case/hr
 
 
 ## State Data References
