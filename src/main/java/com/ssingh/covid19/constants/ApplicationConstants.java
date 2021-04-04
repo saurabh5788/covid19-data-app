@@ -18,7 +18,7 @@ public interface ApplicationConstants {
 			// Swagger UI v3 (OpenAPI)
 			"/v3/api-docs/**", "/swagger-ui/**",
 			// Application End points
-			"/state/*", "/user/*" };
+			"/state**", "/user/*" };
 
 	String AUTH_REQUEST_HEADER = "Authorization";
 	String JWT_TOKEN_PREFIX = "Bearer ";
