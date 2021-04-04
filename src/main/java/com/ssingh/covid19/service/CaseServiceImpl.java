@@ -67,8 +67,7 @@ public class CaseServiceImpl implements CaseService {
 			stateCaseDto
 					.setDeathCases(fetchedCaseBO.getCaseCount().getDeathCases());
 			stateCaseDto.setRecoveredCases(fetchedCaseBO.getCaseCount()
-					.getRecoveredCases());
-			stateCaseDto.setStateCode(code);
+					.getRecoveredCases());			
 		}
 		else{
 			Optional<StateBO> stateOp = stateRepository
@@ -79,6 +78,7 @@ public class CaseServiceImpl implements CaseService {
 			}	
 			stateCaseDto = new CaseDTO();
 		}
+		stateCaseDto.setStateCode(code);
 		return stateCaseDto;
 	}
 
