@@ -22,7 +22,7 @@ import com.ssingh.covid19.constants.ApplicationConstants;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		// Need CORS Support
+		httpSecurity.cors();
 		// Don't need CSRF
 		httpSecurity.csrf().disable()
 		// Authorize Requests
