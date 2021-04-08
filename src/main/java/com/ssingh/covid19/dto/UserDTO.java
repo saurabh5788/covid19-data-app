@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("user")
 public class UserDTO extends AbstractDTO {
 	private static final long serialVersionUID = -8341212091161470591L;
-	@NotBlank
 	private String name;
 	@NotBlank
 	@Email(message = "${validation.error.user.email}")

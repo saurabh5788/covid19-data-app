@@ -54,17 +54,16 @@ public class UserController {
 		return ResponseEntity.ok(userDto);
 	}
 
-	@GetMapping(value = "/jwt")
-	public ResponseEntity<JWTResponseDTO> createToken(
-			@NotBlank @RequestHeader("username") String userName,
-			@NotBlank @RequestHeader("password") String password) {
-		LOGGER.debug("Authenticating User : {}", userName);
-		Authentication authentication = authenticate(userName, password);
+	@PostMapping(value = { "/jwt", "/jwt/" }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<JWTResponseDTO> createToken(@Valid @RequestBody UserDTO userDto) {
+		LOGGER.debug("Authenticating User : {}", userDto.getUsername());
+		Authentication authentication = authenticate(userDto.getUsername(), userDto.getPassword());
 		LOGGER.debug(ToStringBuilder.reflectionToString(authentication,
 				ToStringStyle.JSON_STYLE));
 
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(userName);
+				.loadUserByUsername(userDto.getUsername());
 
 		final String token = jwtHelper.generateToken(userDetails);
 		return ResponseEntity.ok(new JWTResponseDTO(token));
