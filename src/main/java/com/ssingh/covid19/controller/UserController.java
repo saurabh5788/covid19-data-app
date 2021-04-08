@@ -1,6 +1,8 @@
 package com.ssingh.covid19.controller;
 
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -65,6 +67,17 @@ public class UserController {
 
 		final String token = jwtHelper.generateToken(userDetails);
 		return ResponseEntity.ok(new JWTResponseDTO(token));
+	}
+	
+	@GetMapping(value = "/details")
+	public ResponseEntity<UserDTO> fetchDetails(Principal principal) {
+		LOGGER.debug(ToStringBuilder.reflectionToString(principal,
+				ToStringStyle.JSON_STYLE));
+		LOGGER.debug(ToStringBuilder.reflectionToString(principal,
+				ToStringStyle.JSON_STYLE));
+		UserDTO userDTO = new UserDTO();
+		userDTO.setName(principal.getName());
+		return ResponseEntity.ok(userDTO);
 	}
 
 	private Authentication authenticate(String username, String password) {
