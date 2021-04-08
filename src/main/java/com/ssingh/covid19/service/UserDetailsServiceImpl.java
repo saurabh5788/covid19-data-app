@@ -51,6 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		UserBO userBO = userBOOp.get();		
 		UserDTO userDto = new UserDTO();
+		LOGGER.debug(userDto.toString());
 		BeanUtils.copyProperties(userDto, userBO);
 		return userDto;
 	}
