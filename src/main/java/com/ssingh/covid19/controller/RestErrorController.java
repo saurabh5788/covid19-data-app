@@ -144,6 +144,7 @@ public class RestErrorController extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({JwtException.class, UsernameNotFoundException.class, AuthenticationServiceException.class})
 	@Loggable
 	public ResponseEntity<Object> handleAuthenticationErrors(Exception ex) {
+		ex.printStackTrace();
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				HttpStatus.UNAUTHORIZED.value(),
 				"Unautherized Request.");
