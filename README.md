@@ -23,6 +23,8 @@ It is a basic back-end service which collects the State wise Covid19 case update
 - CI/CD Pipeline using Travis
 - Implementation of Spring Batch for purpose of scheduling all update messages accumulated in 1 day at once.
 - Email Notification for Users.
+- DB Auditing provision
+- DB Migration provision
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT

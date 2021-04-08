@@ -17,6 +17,8 @@ public interface ApplicationConstants {
 			"/webjars/**",
 			// Swagger UI v3 (OpenAPI)
 			"/v3/api-docs/**", "/swagger-ui/**",
+			// Actuator
+			"/actuator", "/actuator/**",
 			// Application End points
 			"/state/**", "/user/*" };
 
