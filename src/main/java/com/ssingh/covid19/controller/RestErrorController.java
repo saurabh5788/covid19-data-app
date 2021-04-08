@@ -152,6 +152,7 @@ public class RestErrorController extends ResponseEntityExceptionHandler {
 			Throwable.class })
 	@Loggable
 	public ResponseEntity<Object> handleAllErrors(Throwable ex) {
+		LOGGER.error(ex.toString());
 		Throwable rootCause = ExceptionUtils.getRootCause(ex);
 		LOGGER.error(rootCause.toString());
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
