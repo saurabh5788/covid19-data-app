@@ -25,6 +25,7 @@ It is a basic back-end service which collects the State wise Covid19 case update
 - Email Notification for Users.
 - DB Auditing provision
 - DB Migration provision
+- Encrypt Password in Client Side on the basis Random String generated from Service.
 
 ## Running Application on local Machine
 1. Make sure you have [Java 8](https://www.java.com/download/) and GIT
