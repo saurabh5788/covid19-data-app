@@ -22,6 +22,9 @@ import com.ssingh.covid19.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserDetailsServiceImpl.class);
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -32,13 +35,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		UserDTO userDTO = fetchUserByUsername(username);
+		LOGGER.debug(userDTO.toString());
 		return new User(userDTO.getUsername(), userDTO.getPassword(),
 				new ArrayList<>());
 
 	}
 	
 	@Loggable
-	public UserDTO fetchUserByUsername(String username){		
+	public UserDTO fetchUserByUsername(String username){	
+		
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if(!userBOOp.isPresent()){
 			throw new UsernameNotFoundException("No Username found : "
