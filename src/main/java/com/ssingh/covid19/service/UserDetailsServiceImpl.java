@@ -46,9 +46,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(authentication==null){
 			throw new AuthenticationServiceException("No Authentication.");
 		}
-		Optional<UserBO> userBOOp = userRepository.findByUsername(authentication.getName());
+		String username = authentication.getName();
+		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if(!userBOOp.isPresent()){
-			throw new AuthenticationServiceException("No Username.");
+			throw new UsernameNotFoundException("No Username found : "
+					+ username);
 		}
 		UserBO userBO = userBOOp.get();		
 		UserDTO userDto = new UserDTO();
