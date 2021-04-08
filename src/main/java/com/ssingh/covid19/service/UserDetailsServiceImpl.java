@@ -33,7 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	@Loggable
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		UserDTO userDTO = fetchUserByUsername(username);
@@ -42,7 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	}
 	
-	@Loggable
 	public UserDTO fetchUserByUsername(String username){			
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if(!userBOOp.isPresent()){
