@@ -18,7 +18,7 @@ It is a basic back-end service which collects the State wise Covid19 case update
 - Standardized Error Codes
 - Error Handling in Messaging
 - Implementation of User Roles and method validation
-- Token Expiration handling 
+- Token Expiration and Refresh handling 
 - Google Signup/Signin
 - CI/CD Pipeline using Travis
 - Implementation of Spring Batch for purpose of scheduling all update messages accumulated in 1 day at once.

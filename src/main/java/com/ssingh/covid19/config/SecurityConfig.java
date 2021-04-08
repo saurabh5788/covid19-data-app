@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable()
 		// Authorize Requests
 				.authorizeRequests()
-				// Theses URLs are open
+				// These URLs are open
 				.antMatchers(ApplicationConstants.AUTH_WHITELIST).permitAll()
 				// Authenticate all other URLs.
 				.anyRequest().authenticated().and().httpBasic();
