@@ -20,7 +20,7 @@ public interface ApplicationConstants {
 			// Actuator
 			"/actuator",
 			// Application End points
-			"/user/add", "/user/jwt", "/state/list" };
+			"/user/add", "/user/jwt" };
 
 	String AUTH_REQUEST_HEADER = "Authorization";
 	String JWT_TOKEN_PREFIX = "Bearer ";
