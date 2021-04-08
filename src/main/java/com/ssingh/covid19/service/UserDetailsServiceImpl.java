@@ -1,11 +1,12 @@
 package com.ssingh.covid19.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.ssingh.covid19.annotation.Loggable;
 import com.ssingh.covid19.dto.UserDTO;
 import com.ssingh.covid19.entity.UserBO;
+import com.ssingh.covid19.exception.UserDetailsServiceException;
 import com.ssingh.covid19.repository.UserRepository;
 
 @Service
@@ -35,15 +37,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		UserDTO userDTO = fetchUserByUsername(username);
-		LOGGER.debug(userDTO.toString());
 		return new User(userDTO.getUsername(), userDTO.getPassword(),
 				new ArrayList<>());
 
 	}
 	
 	@Loggable
-	public UserDTO fetchUserByUsername(String username){	
-		
+	public UserDTO fetchUserByUsername(String username){			
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if(!userBOOp.isPresent()){
 			throw new UsernameNotFoundException("No Username found : "
@@ -51,8 +51,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		UserBO userBO = userBOOp.get();		
 		UserDTO userDto = new UserDTO();
-		LOGGER.debug(userDto.toString());
-		BeanUtils.copyProperties(userDto, userBO);
+		try {
+			BeanUtils.copyProperties(userDto, userBO);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			throw new UserDetailsServiceException(e);
+		}
 		return userDto;
 	}
 
