@@ -1,7 +1,7 @@
 package com.ssingh.covid19.controller;
 
 
-import java.security.Principal;
+import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -70,14 +70,16 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/details")
-	public ResponseEntity<UserDTO> fetchDetails(Principal principal) {
-		LOGGER.debug(ToStringBuilder.reflectionToString(principal,
+	public ResponseEntity<UserDTO> fetchDetails(Authentication authentication) {
+		LOGGER.debug(ToStringBuilder.reflectionToString(authentication,
 				ToStringStyle.JSON_STYLE));
-		LOGGER.debug(ToStringBuilder.reflectionToString(principal,
-				ToStringStyle.JSON_STYLE));
-		UserDTO userDTO = new UserDTO();
-		userDTO.setName(principal.getName());
-		return ResponseEntity.ok(userDTO);
+		Optional<UserDTO> userDtoOp = userDetailsService
+				.fetchUserByUsername(authentication.getName());
+		if(userDtoOp.isPresent()){
+			UserDTO userDto = userDtoOp.get();
+			return ResponseEntity.ok(userDto);
+		}
+		return ResponseEntity.noContent().build();
 	}
 
 	private Authentication authenticate(String username, String password) {
