@@ -71,14 +71,13 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/details")
-	public ResponseEntity<UserDTO> fetchDetails() {
-		Optional<UserDTO> userDtoOp = userDetailsService
-				.fetchUserByUsername();
-		if(userDtoOp.isPresent()){
-			UserDTO userDto = userDtoOp.get();
-			return ResponseEntity.ok(userDto);
+	public ResponseEntity<UserDTO> fetchDetails(Authentication authentication) {
+		if(authentication == null){
+			throw new AuthenticationServiceException("No Authentication configured.");
 		}
-		return ResponseEntity.noContent().build();
+		UserDTO userDto = userDetailsService
+				.fetchUserByUsername(authentication.getName());		
+		return ResponseEntity.ok(userDto);		
 	}
 
 	private Authentication authenticate(String username, String password) {

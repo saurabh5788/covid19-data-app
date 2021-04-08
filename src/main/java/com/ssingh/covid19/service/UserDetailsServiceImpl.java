@@ -25,28 +25,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	@Autowired(required=false)
-	private Authentication authentication;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
-		if (!userBOOp.isPresent()) {
-			throw new UsernameNotFoundException("No Username found : "
-					+ username);
-		}
-		UserBO userBO = userBOOp.get();
-		return new User(userBO.getUsername(), userBO.getPassword(),
+		UserDTO userDTO = fetchUserByUsername(username);
+		return new User(userDTO.getUsername(), userDTO.getPassword(),
 				new ArrayList<>());
 
 	}
 	
-	public UserDTO fetchUserByUsername(){
-		if(authentication==null){
-			throw new AuthenticationServiceException("No Authentication.");
-		}
-		String username = authentication.getName();
+	public UserDTO fetchUserByUsername(String username){		
 		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
 		if(!userBOOp.isPresent()){
 			throw new UsernameNotFoundException("No Username found : "
