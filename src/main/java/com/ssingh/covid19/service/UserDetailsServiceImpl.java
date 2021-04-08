@@ -29,11 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		Optional<UserDTO> userDTOOp = fetchUserByUsername(username);
-		if (!userDTOOp.isPresent()) {
-			throw new UsernameNotFoundException("No Username found : "
-					+ username);
-		}
+		Optional<UserDTO> userDTOOp = fetchUserByUsername(username);		
 		UserDTO userDTO = userDTOOp.get();
 		return new User(userDTO.getUsername(), userDTO.getPassword(),
 				new ArrayList<>());
@@ -41,7 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 	
 	public Optional<UserDTO> fetchUserByUsername(String username){
-		Optional<UserBO> userBOOp = userRepository.findByUsername(username);		
+		Optional<UserBO> userBOOp = userRepository.findByUsername(username);
+		if(!userBOOp.isPresent()){
+			throw new UsernameNotFoundException("No Username found : "
+					+ username);
+		}
 		UserBO userBO = userBOOp.get();		
 		UserDTO userDto = new UserDTO();
 		try {

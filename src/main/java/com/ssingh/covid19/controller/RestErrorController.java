@@ -16,7 +16,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -139,12 +141,12 @@ public class RestErrorController extends ResponseEntityExceptionHandler {
 	}
 
 	
-	@ExceptionHandler(JwtException.class)
+	@ExceptionHandler({JwtException.class, UsernameNotFoundException.class, AuthenticationServiceException.class})
 	@Loggable
-	public ResponseEntity<Object> handleAuthenticationErrors(JwtException ex) {
+	public ResponseEntity<Object> handleAuthenticationErrors(Exception ex) {
 		ApplicationErrorDTO errorDTO = new ApplicationErrorDTO(
 				HttpStatus.UNAUTHORIZED.value(),
-				"Token failed to be authorized.");
+				"Unautherized Request.");
 		return ResponseEntity.status(errorDTO.getStatus()).body(errorDTO);
 	}
 

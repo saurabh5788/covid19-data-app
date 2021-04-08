@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +72,10 @@ public class UserController {
 	
 	@GetMapping(value = "/details")
 	public ResponseEntity<UserDTO> fetchDetails(Authentication authentication) {
+		if (authentication == null) {
+			LOGGER.warn("No Authentication configured.");
+			throw new AuthenticationServiceException("No Authentication found.");
+		}
 		LOGGER.debug(ToStringBuilder.reflectionToString(authentication,
 				ToStringStyle.JSON_STYLE));
 		Optional<UserDTO> userDtoOp = userDetailsService
