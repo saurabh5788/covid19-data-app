@@ -17,7 +17,7 @@ It is a basic back-end service which collects the State wise Covid19 case update
 ## Pending
 - Standardized Error Codes
 - Error Handling in Messaging
-- Implementation of User Roles
+- Implementation of User Roles and method validation
 - Token Expiration handling 
 - Google Signup/Signin
 - CI/CD Pipeline using Travis
