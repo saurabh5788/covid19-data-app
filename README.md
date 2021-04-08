@@ -49,6 +49,7 @@ $ mvnw spring-boot:run -DENV=local
 ## URLs
 - API Docs : http://localhost:8081/api/swagger-ui/
 - Local H2 DB URL : http://localhost:8081/api/h2-console
+- Monitoring : http://localhost:8081/api/actuator
 
 ## API Details
 1. To create a new User.
