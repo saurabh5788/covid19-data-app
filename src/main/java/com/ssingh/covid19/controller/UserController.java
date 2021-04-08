@@ -53,7 +53,8 @@ public class UserController {
 	@PostMapping(value = { "/jwt", "/jwt/" }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<JWTResponseDTO> createToken(@Valid @RequestBody UserDTO userDto) {
-		LOGGER.debug("Authenticating User : {}", userDto.getUsername());
+		LOGGER.debug("User Details : {}", ToStringBuilder.reflectionToString(userDto,
+				ToStringStyle.JSON_STYLE));
 		Authentication authentication = authenticate(userDto.getUsername(), userDto.getPassword());
 		LOGGER.debug(ToStringBuilder.reflectionToString(authentication,
 				ToStringStyle.JSON_STYLE));
