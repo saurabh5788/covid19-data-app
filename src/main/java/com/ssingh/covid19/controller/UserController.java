@@ -71,15 +71,9 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/details")
-	public ResponseEntity<UserDTO> fetchDetails(Authentication authentication) {
-		if (authentication == null) {
-			LOGGER.warn("No Authentication configured.");
-			throw new AuthenticationServiceException("No Authentication found.");
-		}
-		LOGGER.debug(ToStringBuilder.reflectionToString(authentication,
-				ToStringStyle.JSON_STYLE));
+	public ResponseEntity<UserDTO> fetchDetails() {
 		Optional<UserDTO> userDtoOp = userDetailsService
-				.fetchUserByUsername(authentication.getName());
+				.fetchUserByUsername();
 		if(userDtoOp.isPresent()){
 			UserDTO userDto = userDtoOp.get();
 			return ResponseEntity.ok(userDto);
