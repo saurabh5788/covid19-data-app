@@ -11,7 +11,7 @@ It is a basic back-end service which collects the State wise Covid19 case update
 - Messaging : RabbitMQ (@cloudamqp.com)
 - DB : H2 (Local), MySQL (Heroku)
 - API Doc : Swagger 
-- API Security : JWT Token
+- API Security : JWT Token based
 - Monitoring : Actuator, Micrometer
 
 ## Pending

@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,15 +42,18 @@ public class StateServiceImpl implements StateService {
 		LOGGER.info("Fetching States");
 		List<StateBO> stateBOList = stateRepository.findAll();
 		List<StateDTO> stateDTOList = new ArrayList<StateDTO>();
-		try {
-			for (StateBO stateBO : stateBOList) {
+		stateBOList.forEach(new Consumer<StateBO>() {
+			@Override
+			public void accept(StateBO stateBO) {
 				StateDTO stateDTO = new StateDTO();
-				BeanUtils.copyProperties(stateDTO, stateBO);
+				try {
+					BeanUtils.copyProperties(stateDTO, stateBO);
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					throw new StateServiceException(e);
+				}
 				stateDTOList.add(stateDTO);
 			}
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			throw new StateServiceException(e);
-		}
+		});
 		LOGGER.debug(stateDTOList.toString());
 		return stateDTOList;
 	}
