@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class StateWrapperDTO extends AbstractDTO {	
 	private static final long serialVersionUID = 8421655280760223050L;	
 	private List<StateDTO> stateList;
+	private long totalPopulation;
 
 	public List<StateDTO> getStateList() {
 		return stateList;
@@ -15,5 +16,13 @@ public class StateWrapperDTO extends AbstractDTO {
 
 	public void setStateList(List<StateDTO> stateList) {
 		this.stateList = stateList;
+	}
+
+	public long getTotalPopulation() {
+		return totalPopulation;
+	}
+
+	public void setTotalPopulation(long totalPopulation) {
+		this.totalPopulation = totalPopulation;
 	}
 }

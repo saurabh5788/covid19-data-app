@@ -1,7 +1,5 @@
 package com.ssingh.covid19.dto;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("state")
@@ -9,7 +7,7 @@ public class StateDTO extends AbstractDTO {
 	private static final long serialVersionUID = -8341212091161470591L;
 	private String stateCode;
 	private String stateName;
-	private BigInteger population;
+	private long population;
 
 	public String getStateCode() {
 		return stateCode;
@@ -27,11 +25,11 @@ public class StateDTO extends AbstractDTO {
 		this.stateName = stateName;
 	}
 
-	public BigInteger getPopulation() {
+	public long getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(BigInteger population) {
+	public void setPopulation(long population) {
 		this.population = population;
 	}	
 }

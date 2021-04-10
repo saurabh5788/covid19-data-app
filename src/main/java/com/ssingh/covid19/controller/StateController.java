@@ -1,6 +1,8 @@
 package com.ssingh.covid19.controller;
 
 import java.util.List;
+import java.util.function.ToLongFunction;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,9 @@ public class StateController {
 		List<StateDTO> stateList = stateService.fetchAllStates();
 		StateWrapperDTO states = new StateWrapperDTO();
 		states.setStateList(stateList);
+		long totalPopulation = stateList.stream()  
+                .collect(Collectors.summingLong(state -> state.getPopulation())); 
+		states.setTotalPopulation(totalPopulation);
 		ResponseEntity<StateWrapperDTO> response = ResponseEntity.ok(states);
 		return response;
 	}
