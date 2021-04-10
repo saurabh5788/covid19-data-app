@@ -34,7 +34,7 @@ public class StateController {
 		List<StateDTO> stateList = stateService.fetchAllStates();
 		StateWrapperDTO states = new StateWrapperDTO();
 		states.setStateList(stateList);
-		Stream<StateDTO> stateStream = stateList.stream().sorted().limit(5);
+		Stream<StateDTO> stateStream = stateList.stream();
 		
 		long totalPopulation = stateStream.collect(
 				Collectors.summingLong(state -> state.getPopulation()));
