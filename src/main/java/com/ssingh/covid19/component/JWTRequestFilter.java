@@ -22,7 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ssingh.covid19.constants.ApplicationConstants;
 
-//@Component
+@Component
 public class JWTRequestFilter extends OncePerRequestFilter {
 
 	@Autowired
