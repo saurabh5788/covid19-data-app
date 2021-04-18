@@ -6,12 +6,14 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.ssingh.covid19.service.EmailService;
 
 @SpringBootApplication
 @EnableAsync
+@EnableEurekaClient
 public class ApplicationConfig implements ApplicationRunner {
 
 	@Autowired(required = false)
@@ -38,9 +40,9 @@ public class ApplicationConfig implements ApplicationRunner {
 		if (emailService != null) {
 			StringBuilder message = new StringBuilder();
 			message.append("Host : ").append(applicationHost);
-			message.append("Application Name : ").append(applicationName);
-			message.append("Application Instance : ").append(applicationInstanceId);
-			message.append("Application Port : ").append(serverPort);
+			message.append("\nApplication Name : ").append(applicationName);
+			message.append("\nApplication Instance : ").append(applicationInstanceId);
+			message.append("\nApplication Port : ").append(serverPort);
 			emailService.sendMail("saurabh_57@hotmail.com", "Application up",message.toString());			
 		}
 		
