@@ -4,8 +4,8 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 WORKDIR /build/
-RUN echo $ENV
-RUN mvn package -DskipTests -DENV=heroku
+ENV BUILD_VAR=heroku
+RUN mvn package -DskipTests -DENV=${BUILD_VAR}
 
 FROM amazoncorretto:11-alpine-jdk
 ARG JAR_FILE=/build/target/*.jar
