@@ -4,8 +4,8 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 WORKDIR /build/
-RUN echo "ENV : ${ENV}"
-ENV BUILD_VAR=heroku
+
+ENV BUILD_VAR heroku
 RUN echo "ENV : ${BUILD_VAR}"
 RUN mvn package -DskipTests -DENV=${BUILD_VAR}
 
