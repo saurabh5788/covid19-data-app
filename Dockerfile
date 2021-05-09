@@ -4,7 +4,7 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 WORKDIR /build/
-RUN mvnw package -DENV=heroku
+RUN mvnw package
 
 FROM amazoncorretto:11-alpine-jdk
 
