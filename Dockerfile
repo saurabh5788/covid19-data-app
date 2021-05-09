@@ -8,6 +8,4 @@ RUN mvn package -DskipTests
 
 FROM amazoncorretto:11-alpine-jdk
 
-WORKDIR /app
-COPY --from=MAVEN_BUILD /build/target/covid19-data-app.jar /app/
-ENTRYPOINT ["java", "-jar", "covid19-data-app.jar"]
+ENTRYPOINT ["java", "-jar", "target/covid19-data-app.jar"]
