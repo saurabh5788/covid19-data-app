@@ -4,7 +4,7 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 WORKDIR /build/
-RUN mvn package
+RUN mvn package -DskipTests
 
 FROM amazoncorretto:11-alpine-jdk
 
