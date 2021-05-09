@@ -42,17 +42,14 @@ public class StateServiceImpl implements StateService {
 		LOGGER.info("Fetching States");
 		List<StateBO> stateBOList = stateRepository.findAll();
 		List<StateDTO> stateDTOList = new ArrayList<StateDTO>();
-		stateBOList.forEach(new Consumer<StateBO>() {
-			@Override
-			public void accept(StateBO stateBO) {
-				StateDTO stateDTO = new StateDTO();
-				try {
-					BeanUtils.copyProperties(stateDTO, stateBO);
-				} catch (IllegalAccessException | InvocationTargetException e) {
-					throw new StateServiceException(e);
-				}
-				stateDTOList.add(stateDTO);
+		stateBOList.stream().forEach((stateBO) -> {
+			StateDTO stateDTO = new StateDTO();
+			try {
+				BeanUtils.copyProperties(stateDTO, stateBO);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				throw new StateServiceException(e);
 			}
+			stateDTOList.add(stateDTO);
 		});
 		LOGGER.debug(stateDTOList.toString());
 		return stateDTOList;
