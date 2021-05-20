@@ -1,1 +1,1 @@
-INSERT INTO user_table (id, username, password) values (1, 'saurabh.singh5788@gmail.com', '$argon2id$v=19$m=4096,t=3,p=1$KapRc3IaujL57ws/QjqmKw$jJBsNWfqMWJXhHKvxrBQONLMD0rXRuMkGuMFJQzAOL0');
+INSERT INTO user_table (id, name ,username, password) values (1,'Saurabh Singh', 'saurabh.singh5788@gmail.com', '$argon2id$v=19$m=1024,t=10,p=1$U0rO2+u74QOrCecuR9t64A$/vKJtCJjbUkUlYizIKoVvhGDDPW5l9sjIxj/60xhEgA');

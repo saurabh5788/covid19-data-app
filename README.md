@@ -57,7 +57,7 @@ $ mvnw spring-boot:run -DENV=local
 ## API Details
 1. To create a new User.
 - POST : https://covid19-data-app-be.herokuapp.com/api/user/add
-Sample Request : Username must be a valid Email & Password size must be between 8 and 50
+Sample Request : Username must be a valid Unique Email & Password size must be between 8 and 50
 ```javascript
 {
 	"name":"Saurabh Singh",

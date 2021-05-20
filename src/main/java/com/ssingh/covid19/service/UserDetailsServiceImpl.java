@@ -60,6 +60,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDTO addNewUser(UserDTO user) {
 		UserBO userBO = new UserBO();
 		userBO.setUsername(user.getUsername());
+		System.out.println(passwordEncoder.encode(user.getPassword()));
 		userBO.setPassword(passwordEncoder.encode(user.getPassword()));
 		userBO.setName(user.getName());
 

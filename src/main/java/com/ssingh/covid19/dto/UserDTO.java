@@ -10,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("user")
 public class UserDTO extends AbstractDTO {
 	private static final long serialVersionUID = -8341212091161470591L;
+	
 	private String name;
 	@NotBlank
 	@Email(message = "${validation.error.user.email}")
 	private String username;
 	@NotBlank
-	@Size(min = 8, max = 50)
+	@Size(min = 8, max = 50, message = "${validation.error.user.password.size}")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
