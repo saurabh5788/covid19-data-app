@@ -1,5 +1,8 @@
 package com.ssingh.covid19.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -39,7 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new Argon2PasswordEncoder(16, 32, 1, 1024, 10);
+		Argon2PasswordEncoder argon2PE = new Argon2PasswordEncoder(16, 32, 1,
+				1024, 10);
+		Map<String, PasswordEncoder> encoders = new HashMap<String, PasswordEncoder>();
+		encoders.put("argon2", argon2PE);
+		DelegatingPasswordEncoder delegatingPasswordEncoder = new DelegatingPasswordEncoder(
+				"argon2", encoders);
+		delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(argon2PE);
+		return delegatingPasswordEncoder;
 	}
 
 	@Override

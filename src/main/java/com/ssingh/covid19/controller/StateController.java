@@ -35,7 +35,7 @@ public class StateController {
 	public ResponseEntity<StateWrapperDTO> getAllStates(
 			@RequestParam(name = "pageno", defaultValue = "0") Optional<Integer> pageNoParam,
 			@RequestParam(name = "pagesize", defaultValue = "5") Optional<Integer> pageSizeParam) {
-		List<StateDTO> stateList = stateService.fetchAllStates();
+		List<StateDTO> stateList = stateService.fetchAllStates(pageNoParam.get(), pageSizeParam.get());
 		StateWrapperDTO states = new StateWrapperDTO();
 		states.setStateList(stateList);
 		Stream<StateDTO> stateStream = stateList.stream();

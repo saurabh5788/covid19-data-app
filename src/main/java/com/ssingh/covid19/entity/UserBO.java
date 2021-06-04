@@ -31,7 +31,7 @@ public class UserBO {
 	@NotEmpty
 	@Email
 	private String username;
-	@Column(name = "password", length = 100, nullable = false)
+	@Column(name = "password", length = 200, nullable = false)
 	@NotEmpty	
 	private String password;
 
