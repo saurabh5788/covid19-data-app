@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<docker.image.prefix>saurabh5788</docker.image.prefix>
 	</properties>
 	<dependencies>
 		<!-- Spring Boot Starters -->
@@ -162,7 +163,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>saurabh5788/${project.name}</repository>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 					<skipDockerInfo>true</skipDockerInfo>
 				</configuration>
