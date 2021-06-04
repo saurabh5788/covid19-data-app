@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.ssingh.covid19</groupId>
 	<artifactId>covid19-data-app</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>Covid19 Data App</name>
 	<description>Covid19 Data App</description>
 	<properties>
@@ -146,6 +146,26 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- Docker -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.10</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<!-- <goal>push</goal> -->
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>saurabh5788/${project.name}</repository>
+					<tag>${project.version}</tag>
+					<skipDockerInfo>true</skipDockerInfo>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
