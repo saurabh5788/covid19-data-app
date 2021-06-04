@@ -1,6 +1,7 @@
 package com.ssingh.covid19.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssingh.covid19.annotation.ApiRestEndpoint;
 import com.ssingh.covid19.annotation.ValidStateCode;
@@ -30,14 +32,16 @@ public class StateController {
 	}
 
 	@GetMapping(value = "/list")
-	public ResponseEntity<StateWrapperDTO> getAllStates() {
+	public ResponseEntity<StateWrapperDTO> getAllStates(
+			@RequestParam(name = "pageno", defaultValue = "0") Optional<Integer> pageNoParam,
+			@RequestParam(name = "pagesize", defaultValue = "5") Optional<Integer> pageSizeParam) {
 		List<StateDTO> stateList = stateService.fetchAllStates();
 		StateWrapperDTO states = new StateWrapperDTO();
 		states.setStateList(stateList);
 		Stream<StateDTO> stateStream = stateList.stream();
-		
-		long totalPopulation = stateStream.collect(
-				Collectors.summingLong(state -> state.getPopulation()));
+
+		long totalPopulation = stateStream.collect(Collectors
+				.summingLong(state -> state.getPopulation()));
 		states.setTotalPopulation(totalPopulation);
 		ResponseEntity<StateWrapperDTO> response = ResponseEntity.ok(states);
 		return response;

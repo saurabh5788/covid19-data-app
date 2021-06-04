@@ -7,6 +7,8 @@ import com.ssingh.covid19.dto.StateDTO;
 public interface StateService {
 
 	List<StateDTO> fetchAllStates();
+	
+	List<StateDTO> fetchAllStates(int pageNo, int pageParam);
 
 	StateDTO fetchState(String code);
 

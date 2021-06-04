@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -78,5 +81,28 @@ public class StateServiceImpl implements StateService {
 
 		LOGGER.debug(stateDTO.toString());
 		return stateDTO;
+	}
+
+	@Override
+	public List<StateDTO> fetchAllStates(int pageNo, int pageSize) {
+		LOGGER.info("Fetching States with {} & {}", pageNo, pageSize);
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		Page<StateBO> pagedStates = stateRepository.findAll(pageable);
+		List<StateBO> stateBOList = null;
+		List<StateDTO> stateDTOList = new ArrayList<StateDTO>();
+		if(pagedStates.hasContent()){
+			stateBOList = pagedStates.getContent();			
+			stateBOList.stream().forEach((stateBO) -> {
+				StateDTO stateDTO = new StateDTO();
+				try {
+					BeanUtils.copyProperties(stateDTO, stateBO);
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					throw new StateServiceException(e);
+				}
+				stateDTOList.add(stateDTO);
+			});
+			LOGGER.debug(stateDTOList.toString());
+		}
+		return stateDTOList;
 	}
 }
